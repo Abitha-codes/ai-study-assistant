@@ -34,7 +34,23 @@ const app = express();
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // Core middleware
-app.use(cors({ origin: config.clientUrl, credentials: true }));
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://ai-study-assistant-etyh.vercel.app",
+];
+
+app.use(
+  cors({
+    origin(origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true,
+  })
+);
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true }));
 if (config.nodeEnv === "development") app.use(morgan("dev"));
