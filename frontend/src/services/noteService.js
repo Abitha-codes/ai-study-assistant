@@ -7,14 +7,10 @@ export const noteService = {
   },
 
   upload: async (formData) => {
-    const res = await api.post("/notes/upload", formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    });
+  const res = await api.post("/notes/upload", formData);
 
-    return res.data;
-  },
+  return res.data;
+},
 
   remove: async (id) => {
     const res = await api.delete(`/notes/${id}`);

@@ -87,8 +87,20 @@ const UploadPage = () => {
 
       fileInputRef.current.value = "";
     } catch (err) {
-      toast.error(err.response?.data?.message || "Upload failed");
-    } finally {
+  console.log(err);
+  console.log(err.response);
+  console.log(err.response?.data);
+
+  alert(
+    JSON.stringify(err.response?.data || err.message)
+  );
+
+  toast.error(
+    err.response?.data?.message ||
+    err.message ||
+    "Upload failed"
+  );
+} finally {
       setUploading(false);
     }
   };
@@ -155,12 +167,12 @@ const generateSummary = (note) => {
         </div>
 
         <input
-          ref={fileInputRef}
-          hidden
-          type="file"
-          accept=".pdf,.docx,.txt"
-          onChange={(e) => selectFile(e.target.files[0])}
-        />
+  ref={fileInputRef}
+  hidden
+  type="file"
+  accept="application/pdf,.pdf,.doc,.docx,.txt,text/plain"
+  onChange={(e) => selectFile(e.target.files[0])}
+/>
 
         <div
           onClick={() => fileInputRef.current.click()}
