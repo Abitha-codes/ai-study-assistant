@@ -88,7 +88,7 @@ const UploadPage = () => {
       setFile(null);
 
       fileInputRef.current.value = "";
-    } } catch (err) {
+    } catch (err) {
   console.log(err);
 
   alert(err.message);
