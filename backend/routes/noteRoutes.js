@@ -18,7 +18,15 @@ router.get("/", getNotes);
 
 router.get("/:id", getNote);
 
-router.post("/upload", upload.single("file"), uploadNote);
+router.post(
+  "/upload",
+  (req, res, next) => {
+    console.log("Upload request reached");
+    next();
+  },
+  upload.single("file"),
+  uploadNote
+);
 
 router.delete("/:id", deleteNote);
 
