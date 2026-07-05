@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import {
@@ -72,6 +73,7 @@ const UploadPage = () => {
     const formData = new FormData();
 
     formData.append("subjectId", subjectId);
+    
     formData.append("file", file);
 
     try {
@@ -87,13 +89,6 @@ const UploadPage = () => {
 
       fileInputRef.current.value = "";
     } catch (err) {
-  console.log(err);
-  console.log(err.response);
-  console.log(err.response?.data);
-
-  alert(
-    JSON.stringify(err.response?.data || err.message)
-  );
 
   toast.error(
     err.response?.data?.message ||
@@ -168,10 +163,15 @@ const generateSummary = (note) => {
 
         <input
   ref={fileInputRef}
-  hidden
   type="file"
   accept="application/pdf,.pdf,.doc,.docx,.txt,text/plain"
-  onChange={(e) => selectFile(e.target.files[0])}
+  onChange={(e) => {
+    const selected = e.target.files?.[0];
+    console.log("Selected:", selected);
+    if (selected) {
+      selectFile(selected);
+    }
+  }}
 />
 
         <div

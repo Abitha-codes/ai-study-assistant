@@ -9,10 +9,13 @@ import { extractTextFromFile } from "../services/fileParser.js";
 // @route POST /api/notes/upload
 // @access Private
 export const uploadNote = asyncHandler(async (req, res) => {
-  if (!req.file) {
-    res.status(400);
-    throw new Error("Please upload a file");
-  }
+  console.log("BODY:", req.body);
+console.log("FILE:", req.file);
+
+if (!req.file) {
+  res.status(400);
+  throw new Error("Please upload a file");
+}
 
   const { subjectId, title } = req.body;
 
